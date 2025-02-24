@@ -33,7 +33,7 @@ public class RestControllerWhebHook {
 			Gson gson = new Gson();
 			Update update = gson.fromJson(updateJson, Update.class);
 			
-			if (update != null && update.message() != null) {
+			if (update != null) {
 				service.processing(update);
 			} else {
 				log.info("Получено пустое обновление");

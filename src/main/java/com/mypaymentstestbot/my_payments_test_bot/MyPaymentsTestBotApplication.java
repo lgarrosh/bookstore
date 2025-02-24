@@ -9,5 +9,4 @@ public class MyPaymentsTestBotApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyPaymentsTestBotApplication.class, args);
 	}
-
 }
