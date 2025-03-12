@@ -18,6 +18,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
 
 import jakarta.annotation.PostConstruct;
 
+import java.io.File;
+
 @Component
 public class WebhookManager {
 
@@ -27,6 +29,8 @@ public class WebhookManager {
 	private NgrokService ngrokService;
 	@Autowired
 	private TelegramBot bot;
+	@Autowired
+	private AppProperties appProperties;
 
 	public WebhookManager() {
 		log.info("WebhookManager create been");
@@ -35,15 +39,17 @@ public class WebhookManager {
 	@PostConstruct
 	public void setWebhook() {
 		// Получаем публичный url нашего локального сервера
-		String publicUrl = ngrokService.startNgrok(8080);
-		log.info("ngrok url: " + publicUrl);
+		String publicUrl = appProperties.getHost();
+		log.info("my url: " + publicUrl);
+		File certificate = new File("/root/webhook.crt");
 
-		SetWebhook webhookRequest = new SetWebhook().url(publicUrl + "/" + AppProperties.endpointWebhook);
+		SetWebhook webhookRequest = new SetWebhook().certificate(certificate).url(publicUrl + "/" + AppProperties.endpointWebhook);
 		// Установка вебхука
 		bot.execute(webhookRequest, new Callback<SetWebhook, BaseResponse>() {
 			@Override
 			public void onResponse(SetWebhook request, BaseResponse response) {
 				log.info("Webhook успешно установлен!");
+				log.info(response.toString());
 			}
 
 			@Override
