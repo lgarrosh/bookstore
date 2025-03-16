@@ -27,6 +27,8 @@ public class WebhookManager {
 	private NgrokService ngrokService;
 	@Autowired
 	private TelegramBot bot;
+	@Autowired
+	private AppProperties appProperties;
 
 	public WebhookManager() {
 		log.info("WebhookManager create been");

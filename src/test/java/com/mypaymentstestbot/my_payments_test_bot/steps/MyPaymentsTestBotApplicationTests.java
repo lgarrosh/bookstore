@@ -35,7 +35,6 @@ public class MyPaymentsTestBotApplicationTests extends CucumberSpringConfigurati
 	@Then("проверяем что webhook установлен")
 	public void checkSetWebhook() {
 		GetWebhookInfoResponse webhookInfo = testContext.get("WebhookInfo", GetWebhookInfoResponse.class);
-		log.info(webhookInfo.toString());
 		assertNotNull(webhookInfo.webhookInfo().url());
 	}
 }
