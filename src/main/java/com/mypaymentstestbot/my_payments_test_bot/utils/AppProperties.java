@@ -13,6 +13,8 @@ public class AppProperties {
 	
 	private String telegramBotUrl;
 	private String telegramBotToken;
+	private String host;
+
 	public static final String endpointWebhook = "webhook";
 
 	public AppProperties() {
@@ -35,11 +37,26 @@ public class AppProperties {
 		return telegramBotToken;
 	}
 
+	public String getHost() {
+		return host;
+	}
+
 	public void setTelegramBotToken(String telegramBotToken) {
 		this.telegramBotToken = telegramBotToken;
+	}
+
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public static String getEndpointwebhook() {
 		return endpointWebhook;
 	}
+
+	@Override
+	public String toString() {
+		return "AppProperties [telegramBotUrl=" + telegramBotUrl + ", telegramBotToken=" + telegramBotToken + ", host="
+				+ host + "]";
+	}
+	
 }

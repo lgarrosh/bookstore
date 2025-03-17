@@ -18,6 +18,8 @@ import com.pengrad.telegrambot.response.BaseResponse;
 
 import jakarta.annotation.PostConstruct;
 
+import java.io.File;
+
 @Component
 public class WebhookManager {
 
@@ -27,19 +29,31 @@ public class WebhookManager {
 	private NgrokService ngrokService;
 	@Autowired
 	private TelegramBot bot;
+	@Autowired
+	private AppProperties appProperties;
 
 	public WebhookManager() {
 		log.info("WebhookManager create been");
 	}
+	
+	private SetWebhook getSetWebhookRequest() {
+		String publicUrl;
+		SetWebhook setWebhook =  new SetWebhook();
+		if (appProperties.getHost() != null) {
+			publicUrl = appProperties.getHost();
+			File certificate = new File("/root/webhook.crt");
+			setWebhook.certificate(certificate).url(publicUrl + "/" + AppProperties.endpointWebhook);
+		} else {
+			publicUrl = ngrokService.startNgrok(8080);
+			setWebhook.url(publicUrl + "/" + AppProperties.endpointWebhook);
+		}
+		log.info("publicUrl = " + publicUrl);
+		return setWebhook;
+	}
 
 	@PostConstruct
 	public void setWebhook() {
-		// Получаем публичный url нашего локального сервера
-		String publicUrl = ngrokService.startNgrok(8080);
-		log.info("ngrok url: " + publicUrl);
-
-		SetWebhook webhookRequest = new SetWebhook().url(publicUrl + "/" + AppProperties.endpointWebhook);
-		// Установка вебхука
+		SetWebhook webhookRequest = getSetWebhookRequest();
 		bot.execute(webhookRequest, new Callback<SetWebhook, BaseResponse>() {
 			@Override
 			public void onResponse(SetWebhook request, BaseResponse response) {
@@ -59,6 +73,8 @@ public class WebhookManager {
 
 	@EventListener(ContextClosedEvent.class)
 	public void disroyWebhookAndNgrok() {
-		ngrokService.stopNgrok();
+		if (appProperties.getHost() == null) {
+			ngrokService.stopNgrok();
+		}
 	}
 }

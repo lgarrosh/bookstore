@@ -1,6 +1,6 @@
 package com.mypaymentstestbot.my_payments_test_bot.steps;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,13 +29,13 @@ public class MyPaymentsTestBotApplicationTests extends CucumberSpringConfigurati
 	public void sendRequestGetWebhookInfo() {
 		GetWebhookInfo getWebhookInfo = new GetWebhookInfo();
 		GetWebhookInfoResponse webhookInfo = bot.execute(getWebhookInfo);
+		assertTrue(webhookInfo.isOk());
 		testContext.set("WebhookInfo", webhookInfo);
 	}
 	
 	@Then("проверяем что webhook установлен")
 	public void checkSetWebhook() {
 		GetWebhookInfoResponse webhookInfo = testContext.get("WebhookInfo", GetWebhookInfoResponse.class);
-		log.info(webhookInfo.toString());
-		assertNotNull(webhookInfo.webhookInfo().url());
+		assertTrue(webhookInfo.webhookInfo().url() != null && !webhookInfo.webhookInfo().url().isEmpty(), "Вебхук не установлен");
 	}
 }
