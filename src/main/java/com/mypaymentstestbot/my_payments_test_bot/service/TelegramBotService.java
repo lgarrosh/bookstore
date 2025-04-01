@@ -24,6 +24,9 @@ public class TelegramBotService {
 	@Autowired
 	private TelegramBot bot;
 	
+	@Autowired
+	private BookService bookService;
+	
 	public void processing(Update update) {
 		
 		if (update.message() != null && update.message().text() != null) {
@@ -78,17 +81,17 @@ public class TelegramBotService {
 	}
 	
 	private  BaseResponse sendDonationButton(long chatId) {
-        InlineKeyboardButton donateButton = new InlineKeyboardButton("Пожертвовать звезды").pay();  // Устанавливаем параметр pay для кнопки
+        InlineKeyboardButton donateButton = new InlineKeyboardButton("Купить!").pay();  // Устанавливаем параметр pay для кнопки
 
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(donateButton);
-        SendInvoice message = new SendInvoice(chatId, "1", "2", "3", "XTR", new LabeledPrice("4", 1))
+        SendInvoice message = new SendInvoice(chatId, "жжизнь без трусов 2.0", "Автор: Алекс Лесли", "1", "XTR", new LabeledPrice("Электронная книга", 5))
                 .replyMarkup(keyboardMarkup);
 
         return bot.execute(message);
     }
 	
 	private BaseResponse deliverGoods(Update update) {
-		SendMessage request = new SendMessage(update.message().chat().id(), "вот ваш товар -> (*)");
+		SendMessage request = new SendMessage(update.message().chat().id(), bookService.getBookById(1).getFilePath());
 		return bot.execute(request);
 	}
 }

@@ -18,4 +18,10 @@ public class BookService {
 	public List<Book> getAllBooks() {
 		return bookRepository.findAll();
 	}
+	
+	public Book getBookById(int id) {
+		List<Book> myList = bookRepository.findAll();
+		Book myBook = myList.get((int) (id-1));
+		return myBook;
+	}
 }
