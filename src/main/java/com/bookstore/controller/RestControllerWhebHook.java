@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.controller;
+package com.bookstore.controller;
 
 import org.slf4j.Logger;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookstore.service.TelegramBotService;
+import com.bookstore.utils.AppProperties;
 import com.google.gson.Gson;
-import com.mypaymentstestbot.my_payments_test_bot.service.TelegramBotService;
-import com.mypaymentstestbot.my_payments_test_bot.utils.AppProperties;
 import com.pengrad.telegrambot.model.Update;
 
 

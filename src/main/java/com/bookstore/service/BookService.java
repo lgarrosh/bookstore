@@ -1,11 +1,11 @@
-package com.mypaymentstestbot.my_payments_test_bot.service;
+package com.bookstore.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.mypaymentstestbot.my_payments_test_bot.entity.Book;
-import com.mypaymentstestbot.my_payments_test_bot.repository.BookRepository;
+import com.bookstore.entity.Book;
+import com.bookstore.repository.BookRepository;
 
 @Service
 public class BookService {

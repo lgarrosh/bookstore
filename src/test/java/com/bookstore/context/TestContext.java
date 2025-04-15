@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.context;
+package com.bookstore.context;
 
 import java.util.HashMap;
 import java.util.Map;

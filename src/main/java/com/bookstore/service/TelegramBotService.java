@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.service;
+package com.bookstore.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

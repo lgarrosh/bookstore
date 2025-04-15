@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot;
+package com.bookstore;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

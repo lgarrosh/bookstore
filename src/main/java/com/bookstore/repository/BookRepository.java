@@ -1,10 +1,10 @@
-package com.mypaymentstestbot.my_payments_test_bot.repository;
+package com.bookstore.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mypaymentstestbot.my_payments_test_bot.entity.Book;
+import com.bookstore.entity.Book;
 
 
 @Repository

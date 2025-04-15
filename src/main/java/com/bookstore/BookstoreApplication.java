@@ -1,12 +1,12 @@
-package com.mypaymentstestbot.my_payments_test_bot;
+package com.bookstore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyPaymentsTestBotApplication {
+public class BookstoreApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyPaymentsTestBotApplication.class, args);
+		SpringApplication.run(BookstoreApplication.class, args);
 	}
 }

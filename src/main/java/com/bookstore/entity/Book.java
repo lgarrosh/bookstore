@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.entity;
+package com.bookstore.entity;
 
 import java.sql.Date;
 

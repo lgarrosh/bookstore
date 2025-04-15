@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.service;
+package com.bookstore.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.mypaymentstestbot.my_payments_test_bot.utils.AppProperties;
+import com.bookstore.utils.AppProperties;
 import com.pengrad.telegrambot.TelegramBot;
 
 @Configuration

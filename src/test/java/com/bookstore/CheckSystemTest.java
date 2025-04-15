@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot;
+package com.bookstore;
 
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.mypaymentstestbot.my_payments_test_bot.service.BookService;
-import com.mypaymentstestbot.my_payments_test_bot.service.webhook.NgrokService;
+import com.bookstore.service.BookService;
+import com.bookstore.service.webhook.NgrokService;
 
 @SpringBootTest
 public class CheckSystemTest {

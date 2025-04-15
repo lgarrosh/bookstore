@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.service.webhook;
+package com.bookstore.service.webhook;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.mypaymentstestbot.my_payments_test_bot.utils.AppProperties;
+import com.bookstore.utils.AppProperties;
 import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SetWebhook;

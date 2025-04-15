@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.utils;
+package com.bookstore.utils;
 
 
 import java.time.Duration;

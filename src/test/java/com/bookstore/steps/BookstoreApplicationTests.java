@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.steps;
+package com.bookstore.steps;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mypaymentstestbot.my_payments_test_bot.CucumberSpringConfiguration;
-import com.mypaymentstestbot.my_payments_test_bot.context.TestContext;
+import com.bookstore.CucumberSpringConfiguration;
+import com.bookstore.context.TestContext;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.GetWebhookInfo;
 import com.pengrad.telegrambot.response.GetWebhookInfoResponse;
@@ -15,9 +15,9 @@ import com.pengrad.telegrambot.response.GetWebhookInfoResponse;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class MyPaymentsTestBotApplicationTests extends CucumberSpringConfiguration {
+public class BookstoreApplicationTests extends CucumberSpringConfiguration {
 	
-	private static final Logger log = LoggerFactory.getLogger(MyPaymentsTestBotApplicationTests.class);
+	private static final Logger log = LoggerFactory.getLogger(BookstoreApplicationTests.class);
 
 	@Autowired
 	private TelegramBot bot;

@@ -8,10 +8,10 @@
 		<version>3.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.mypaymentstestbot</groupId>
-	<artifactId>my-payments-test-bot</artifactId>
+	<groupId>com.bookstore</groupId>
+	<artifactId>bookstore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>my-payments-test-bot</name>
+	<name>bookstore</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

@@ -1,4 +1,4 @@
-package com.mypaymentstestbot.my_payments_test_bot.service.webhook;
+package com.bookstore.service.webhook;
 
 import java.io.BufferedReader;
 import java.io.IOException;
