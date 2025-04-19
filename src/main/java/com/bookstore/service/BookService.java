@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bookstore.entity.Book;
-import com.bookstore.repository.BookRepository;
+import com.bookstore.db.entity.Book;
+import com.bookstore.db.repository.BookRepository;
 
 @Service
 public class BookService {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bookstore.service.TelegramBotService;
-import com.bookstore.utils.AppProperties;
+import com.bookstore.service.utils.AppProperties;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.model.Update;
 

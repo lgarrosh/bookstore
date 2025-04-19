@@ -1,4 +1,4 @@
-package com.bookstore.entity;
+package com.bookstore.db.entity;
 
 import java.sql.Date;
 
