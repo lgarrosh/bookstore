@@ -14,6 +14,7 @@ public class AppProperties {
 	private String telegramBotUrl;
 	private String telegramBotToken;
 	private String host;
+	private Integer port;
 
 	public static final String endpointWebhook = "webhook";
 
@@ -51,6 +52,14 @@ public class AppProperties {
 
 	public static String getEndpointwebhook() {
 		return endpointWebhook;
+	}
+
+	public Integer getPort() {
+		return port;
+	}
+
+	public void setPort(Integer port) {
+		this.port = port;
 	}
 
 	@Override

@@ -39,12 +39,12 @@ public class WebhookManager {
 	private SetWebhook getSetWebhookRequest() {
 		String publicUrl;
 		SetWebhook setWebhook =  new SetWebhook();
-		if (appProperties.getHost() != null) {
+		if (appProperties.getHost() != null) { // if profile == prod
 			publicUrl = appProperties.getHost();
 			File certificate = new File("/root/webhook.crt");
 			setWebhook.certificate(certificate).url(publicUrl + "/" + AppProperties.endpointWebhook);
-		} else {
-			publicUrl = ngrokService.startNgrok(8080);
+		} else { // if profile == null
+			publicUrl = ngrokService.startNgrok(appProperties.getPort());
 			setWebhook.url(publicUrl + "/" + AppProperties.endpointWebhook);
 		}
 		log.info("publicUrl = " + publicUrl);
