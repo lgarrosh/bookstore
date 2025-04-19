@@ -1,4 +1,4 @@
-package com.bookstore.service.webhook;
+package com.bookstore.configuration.webhook;
 
 import java.io.BufferedReader;
 import java.io.IOException;

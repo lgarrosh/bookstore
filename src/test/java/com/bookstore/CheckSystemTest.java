@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.bookstore.service.BookService;
-import com.bookstore.service.webhook.NgrokService;
+import com.bookstore.configuration.webhook.NgrokService;
+import com.bookstore.db.BookService;
+
 
 @SpringBootTest
 public class CheckSystemTest {

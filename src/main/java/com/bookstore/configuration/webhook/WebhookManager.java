@@ -1,4 +1,4 @@
-package com.bookstore.service.webhook;
+package com.bookstore.configuration.webhook;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.bookstore.service.utils.AppProperties;
+import com.bookstore.configuration.AppProperties;
 import com.pengrad.telegrambot.Callback;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SetWebhook;

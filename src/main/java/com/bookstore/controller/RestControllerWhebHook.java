@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookstore.service.TelegramBotService;
-import com.bookstore.service.utils.AppProperties;
+
+import com.bookstore.configuration.AppProperties;
+import com.bookstore.service.bot.TelegramBotService;
 import com.google.gson.Gson;
 import com.pengrad.telegrambot.model.Update;
 
@@ -39,7 +40,8 @@ public class RestControllerWhebHook {
 				log.info("Получено пустое обновление");
 			}
 		} catch (Exception e) {
-			log.info("Получено неожидаемое сообщение от телеграм: " + e.toString());
+			log.info("Получено неожидаемое сообщение от телеграм: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }

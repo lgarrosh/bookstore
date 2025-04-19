@@ -1,4 +1,4 @@
-package com.bookstore.service.utils;
+package com.bookstore.configuration;
 
 
 import java.time.Duration;
