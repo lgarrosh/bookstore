@@ -2,19 +2,27 @@ package com.bookstore.service;
 
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bookstore.db.BookService;
+import com.bookstore.db.entity.Book;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.request.SendMessage;
 
 @Service
 public class MenuService {
 	
-	private static final String TITLE_BOOK = "Alex lesly";
-	private static final String CALLBACK = "1";
+	private static final String MASSAGE_TEXT = "Выберите товар из списка";
+	
+	@Autowired
+	private BookService bookService;
 	
 	public SendMessage sendMenuButton(Long chatId) {
-		return new SendMessage(chatId, "Тестовый текст").replyMarkup(createKeyboardMarkup());
+		return new SendMessage(chatId, MASSAGE_TEXT).replyMarkup(createKeyboardMarkup());
 	}
 	
 	private InlineKeyboardMarkup createKeyboardMarkup() {
@@ -22,8 +30,10 @@ public class MenuService {
 	}
 	
 	private InlineKeyboardButton[] createKeyboardButton() {
-		return new InlineKeyboardButton[] {
-			new InlineKeyboardButton(TITLE_BOOK).callbackData(CALLBACK)
-		};
+		List<InlineKeyboardButton> inlineButton =new ArrayList<InlineKeyboardButton>();
+		for (Book book : bookService.getAllByOrderByIdAsc()) {
+			inlineButton.add(new InlineKeyboardButton(book.getTitle()).callbackData(String.valueOf(book.getId())));
+		}
+		return inlineButton.toArray(new InlineKeyboardButton[0]);
 	}
 }

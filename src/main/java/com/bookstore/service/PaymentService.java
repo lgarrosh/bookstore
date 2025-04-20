@@ -1,9 +1,12 @@
 package com.bookstore.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookstore.db.BookService;
+import com.bookstore.db.entity.Book;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
@@ -22,23 +25,31 @@ public class PaymentService {
 	@Autowired
 	private BookService bookService;
 	
+	private static final String NOT_FAUNT_BOOK = "Книга не найдена";
+	private static final String CURRENCY = "XTR";
+	private static final String TITLE_BUTTON = "Купить";
 	
-	public BaseResponse sendInvoice(Long chatId, String bookId) {
-	    InlineKeyboardButton donateButton = new InlineKeyboardButton("Купить!").pay();
-		
-	    InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup(donateButton);
-	    SendInvoice message = new SendInvoice(chatId, "жжизнь без трусов 2.0", "Автор: Алекс Лесли", "1", "XTR", new LabeledPrice("Электронная книга", 1))
-	            .replyMarkup(keyboardMarkup);
 	
-	    return bot.execute(message);
+
+	public Optional<BaseResponse> sendInvoice(Long chatId, String bookId) {
+	    Book book = bookService.getBookById(Long.valueOf(bookId)).orElseThrow(() -> new RuntimeException(NOT_FAUNT_BOOK));
+	    SendInvoice message = new SendInvoice(chatId, book.getTitle(), book.getAuthor(), 
+	    		bookId, CURRENCY, new LabeledPrice(book.getTitle(), book.getPrice()))
+	            .replyMarkup(createKeyboardMarkupPay(TITLE_BUTTON));
+	    return Optional.ofNullable(bot.execute(message));
 	}
 	
-	public BaseResponse confirmTransaction(String preCheckoutId) { // update.preCheckoutQuery() != null
-		return bot.execute(new AnswerPreCheckoutQuery(preCheckoutId));
+	public Optional<BaseResponse> confirmTransaction(String preCheckoutId) { // update.preCheckoutQuery() != null
+		return Optional.ofNullable(bot.execute(new AnswerPreCheckoutQuery(preCheckoutId)));
 	}
 	
-	public BaseResponse deliverProduct(Long chatId, String bookId) { // update.message().successfulPayment() != null
-		SendMessage request = new SendMessage(chatId, bookService.getBookById(Integer.valueOf(bookId)).getFilePath());
-		return bot.execute(request);
+	public Optional<BaseResponse> deliverProduct(Long chatId, String bookId) { // update.message().successfulPayment() != null
+		Book book = bookService.getBookById(Long.valueOf(bookId)).orElseThrow(() -> new RuntimeException(NOT_FAUNT_BOOK));
+		SendMessage request = new SendMessage(chatId, book.getFilePath());
+		return Optional.ofNullable(bot.execute(request));
+	}
+	
+	private InlineKeyboardMarkup createKeyboardMarkupPay(String title) {
+		return new InlineKeyboardMarkup(new InlineKeyboardButton(title).pay());
 	}
 }

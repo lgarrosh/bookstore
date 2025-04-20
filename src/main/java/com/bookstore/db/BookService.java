@@ -1,6 +1,7 @@
 package com.bookstore.db;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,12 @@ public class BookService {
 		return bookRepository.findAll();
 	}
 	
-	public Book getBookById(int id) {
-		List<Book> myList = bookRepository.findAll();
-		Book myBook = myList.get((int) (id-1));
-		return myBook;
+	public List<Book> getAllByOrderByIdAsc() {
+		return bookRepository.findAllByOrderByIdAsc();
+	}
+	
+	public Optional<Book> getBookById(Long id) {
+		Optional<Book> book = bookRepository.findById(id);
+		return book;
 	}
 }

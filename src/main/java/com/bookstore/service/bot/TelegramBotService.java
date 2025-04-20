@@ -1,5 +1,7 @@
 package com.bookstore.service.bot;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,36 +26,35 @@ public class TelegramBotService {
 	@Autowired
 	private PaymentService paymentService;
 	
+	@Autowired
+	private StartCommandHandler start;
+	
 	
 	public void processing(Update update) {
-		BaseResponse baseresponse = null;
+		Optional<BaseResponse> baseResponse = Optional.empty();
 		if (update.message() != null && update.message().text() != null) {
-			baseresponse = handlerCommand(update);
+			baseResponse = handlerCommand(update);
 		} else if (update.callbackQuery() != null) {
-			baseresponse = handlerCallback(update);
+			baseResponse = handlerCallback(update);
 		} else if (update.preCheckoutQuery() != null) {
-			baseresponse = paymentService.confirmTransaction(update.preCheckoutQuery().id());
+			baseResponse = paymentService.confirmTransaction(update.preCheckoutQuery().id());
 		} else if (update.message().successfulPayment() != null) {
-			baseresponse = paymentService.deliverProduct(update.message().chat().id(), update.message().successfulPayment().invoicePayload());
-		} if (baseresponse != null) {
-			log.info(baseresponse.isOk() ? "Успешно" : "Ошибка");
-		}
+			baseResponse = paymentService.deliverProduct(update.message().chat().id(), update.message().successfulPayment().invoicePayload());
+		} baseResponse.ifPresent(resp -> log.info(resp.isOk() ? "Успешно" : "Ошибка"));
 	}
 	
-	private BaseResponse handlerCommand(Update update) {
-		StartCommandHandler start = new StartCommandHandler();
+	private Optional<BaseResponse> handlerCommand(Update update) {
 		if (start.canHandl(update.message().text())) {
 			SendMessage sendMessage = start.handle(update);
-			BaseResponse response = bot.execute(sendMessage);
-			return response;
+			return Optional.of(bot.execute(sendMessage));
 		}
-		return null;
+		return Optional.empty();
 	}
 	
-	private BaseResponse handlerCallback(Update update) {
-		BaseResponse response = paymentService.sendInvoice(update.callbackQuery().from().id(), update.callbackQuery().data());
-		if (response.isOk()) {
-			response = bot.execute(new AnswerCallbackQuery(update.callbackQuery().id()));
+	private Optional<BaseResponse> handlerCallback(Update update) {
+		Optional<BaseResponse> response = paymentService.sendInvoice(update.callbackQuery().from().id(), update.callbackQuery().data());
+		if (response.isPresent() && response.get().isOk()) {
+				response = Optional.ofNullable(bot.execute(new AnswerCallbackQuery(update.callbackQuery().id())));
 		}
 		return response;
 	}
